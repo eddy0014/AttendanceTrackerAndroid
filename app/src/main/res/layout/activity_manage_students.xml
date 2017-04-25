@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.eddy.attendancetracker.MainActivity">
+    tools:context="com.example.eddy.attendancetracker.ManageStudents">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:layout_gravity="center_horizontal" />
 
     <ListView
-        android:id="@+id/courseListView"
+        android:id="@+id/studentListView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -24,7 +24,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Add Course"
-        android:onClick="addCourse"/>
+        android:text="Add Student"
+        android:onClick="addStudent"/>
 
 </LinearLayout>

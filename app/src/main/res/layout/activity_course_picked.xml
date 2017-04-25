@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.eddy.attendancetracker.MainActivity">
+    tools:context="com.example.eddy.attendancetracker.CoursePicked">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,18 +13,18 @@
         android:text="Hello World!"
         android:layout_gravity="center_horizontal" />
 
-    <ListView
-        android:id="@+id/courseListView"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#cfd8dc"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Take Attendance"
+        android:onClick="takeAttendance"/>
 
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Add Course"
-        android:onClick="addCourse"/>
+        android:text="Manage Students"
+        android:onClick="manageStudents"/>
 
 </LinearLayout>

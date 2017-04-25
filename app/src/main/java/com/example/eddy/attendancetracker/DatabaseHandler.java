@@ -2,8 +2,11 @@ package com.example.eddy.attendancetracker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by e-sal on 4/16/2017.
@@ -61,12 +64,56 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public void addCourse(String courseNum, String courseName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
+        // Values to put into the "courses" table
         ContentValues values = new ContentValues();
         values.put("course_num", courseNum);
         values.put("course_name", courseName);
 
-        //Inserting row
+        // Inserting row into "courses" table
         db.insert("courses", null, values);
+
+        // Create the table that will hold the students enrolled in the class
+        String CREATE_NEW_COURSE_TABLE = "CREATE TABLE " + courseNum + " (student_id int, first_name TEXT, last_name TEXT)";
+        db.execSQL(CREATE_NEW_COURSE_TABLE);
+
+        // Create the table that will hold the attendance for the students in the course
+        String CREATE_NEW_COURSE_ATTENDANCE_TABLE = "CREATE TABLE attendance_" + courseNum + " (student_id int, first_name TEXT, last_name TEXT, status TEXT, status_date TEXT)";
+        db.execSQL(CREATE_NEW_COURSE_ATTENDANCE_TABLE);
+
         db.close();
+    }
+
+    public void addStudent(int studentID, String firstName, String lastName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("student_id", studentID);
+        values.put("first_name", firstName);
+        values.put("last_name", lastName);
+
+        // Inserting row
+        //db.insert("")
+        //db.close();
+    }
+
+    public ArrayList<Course> getCourses() {
+        ArrayList<Course> courseList = new ArrayList<Course>();
+
+        String selectQuery = "SELECT * FROM courses";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all the selected rows
+        if(cursor.moveToFirst()) {
+            do {
+                Course course = new Course();
+                course.setCourseNum(cursor.getString(0));
+                course.setCourseName(cursor.getString(1));
+                courseList.add(course);
+            } while(cursor.moveToNext());
+        }
+
+        return courseList;
     }
 }

@@ -15,7 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddCourse"></activity>
+        <activity android:name=".AddCourse" />
+        <activity android:name=".CoursePicked" />
+        <activity android:name=".ManageStudents" />
+        <activity android:name=".AddStudent"></activity>
     </application>
 
 </manifest>
