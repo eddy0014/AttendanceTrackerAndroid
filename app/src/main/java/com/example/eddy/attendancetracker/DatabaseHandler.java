@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -77,13 +78,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(CREATE_NEW_COURSE_TABLE);
 
         // Create the table that will hold the attendance for the students in the course
-        String CREATE_NEW_COURSE_ATTENDANCE_TABLE = "CREATE TABLE attendance_" + courseNum + " (student_id int, first_name TEXT, last_name TEXT, status TEXT, status_date TEXT)";
+        String CREATE_NEW_COURSE_ATTENDANCE_TABLE = "CREATE TABLE attendance_" + courseNum + " (first_name TEXT, last_name TEXT, status TEXT, status_date TEXT)";
         db.execSQL(CREATE_NEW_COURSE_ATTENDANCE_TABLE);
 
         db.close();
     }
 
-    public void addStudent(int studentID, String firstName, String lastName) {
+    public void addStudent(String courseNumber, int studentID, String firstName, String lastName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -92,8 +93,25 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put("last_name", lastName);
 
         // Inserting row
-        //db.insert("")
-        //db.close();
+        db.insert(courseNumber, null, values);
+        db.close();
+    }
+
+    public void addStudentAttendance(String courseNumber, String firstName, String lastName, boolean statusValue, String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String status = String.valueOf(statusValue);
+
+        ContentValues values = new ContentValues();
+        values.put("first_name", firstName);
+        values.put("last_name", lastName);
+        values.put("status", status);
+        values.put("status_date", date);
+
+        // Inserting row
+        db.insert("attendance_" + courseNumber, null, values);
+        Log.v(TAG, firstName + " " + status + " " + date);
+        db.close();
     }
 
     public ArrayList<Course> getCourses() {
@@ -115,5 +133,106 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
 
         return courseList;
+    }
+
+    public ArrayList<Student> getStudent(int studentID, String courseNum) {
+        ArrayList<Student> student = new ArrayList<Student>();
+
+        String selectQuery = "SELECT * FROM " + courseNum + " WHERE student_id = " + studentID;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all the selected rows
+        if(cursor.moveToFirst()) {
+            do {
+                Student theStudent = new Student();
+                theStudent.setStudentID(cursor.getString(0));
+                theStudent.setFirstName(cursor.getString(1));
+                theStudent.setLastName(cursor.getString(2));
+                student.add(theStudent);
+            } while(cursor.moveToNext());
+        }
+
+        return student;
+    }
+
+    public ArrayList<Student> getStudentsFromCourse(String courseNum) {
+        ArrayList<Student> studentList = new ArrayList<Student>();
+
+        String selectQuery = "SELECT * FROM " + courseNum;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all the selected rows
+        if(cursor.moveToFirst()) {
+            do {
+                Student student = new Student();
+                student.setStudentID(cursor.getString(0));
+                student.setFirstName(cursor.getString(1));
+                student.setLastName(cursor.getString(2));
+                studentList.add(student);
+            } while(cursor.moveToNext());
+        }
+
+        return studentList;
+    }
+
+    public ArrayList<StudentAttendance> getStudentsAtdFromCourse(String courseNum) {
+        ArrayList<StudentAttendance> studentList = new ArrayList<StudentAttendance>();
+
+        String selectQuery = "SELECT * FROM " + courseNum;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all the selected rows
+        if(cursor.moveToFirst()) {
+            do {
+                StudentAttendance student = new StudentAttendance();
+                student.setStudentID(cursor.getString(0));
+                student.setFirstName(cursor.getString(1));
+                student.setLastName(cursor.getString(2));
+                studentList.add(student);
+            } while(cursor.moveToNext());
+        }
+
+        return studentList;
+    }
+
+    public ArrayList<String> getAttendanceForDay(String courseNum, String date) {
+        ArrayList<String> attendanceList = new ArrayList<String>();
+
+        String selectQuery = "SELECT * FROM attendance_" + courseNum + " WHERE status_date = '" + date + "'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all the selected rows
+        if(cursor.moveToFirst()) {
+            do {
+                String presentOrNot;
+                if(cursor.getString(2).equals("true")) {
+                    presentOrNot = "Present";
+                }
+                else {
+                    presentOrNot = "Not Present";
+                }
+                String student = cursor.getString(0) + " " + cursor.getString(1) + " " + presentOrNot + " " + cursor.getString(3);
+                attendanceList.add(student);
+            } while(cursor.moveToNext());
+        }
+
+        return attendanceList;
+    }
+
+
+    public void deleteStudent(int studentId, String courseNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String deleteQuery = "DELETE FROM " + courseNum + " WHERE student_id = " + studentId;
+
+        db.execSQL(deleteQuery);
     }
 }

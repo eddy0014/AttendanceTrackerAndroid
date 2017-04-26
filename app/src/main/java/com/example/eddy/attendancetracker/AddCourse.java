@@ -28,7 +28,6 @@ public class AddCourse extends AppCompatActivity {
         String courseName = courseNameField.getText().toString();
 
         db.addCourse(courseNum, courseName);
-        //TODO make database code to add attendance table for this course
 
         Toast.makeText(this, "Course added", Toast.LENGTH_SHORT).show();
 

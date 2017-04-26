@@ -21,7 +21,17 @@ public class CoursePicked extends AppCompatActivity {
     }
 
     public void takeAttendance(View view) {
+        // Start the take attendance activity
+        Intent myIntent = new Intent(CoursePicked.this, TakeAttendance.class);
+        myIntent.putExtra("courseNumber", courseNumber);
+        startActivity(myIntent);
+    }
 
+    public void viewAttendance(View view) {
+        // Start the take attendance activity
+        Intent myIntent = new Intent(CoursePicked.this, ViewAttendance.class);
+        myIntent.putExtra("courseNumber", courseNumber);
+        startActivity(myIntent);
     }
 
     public void manageStudents(View view) {

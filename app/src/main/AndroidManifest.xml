@@ -18,7 +18,10 @@
         <activity android:name=".AddCourse" />
         <activity android:name=".CoursePicked" />
         <activity android:name=".ManageStudents" />
-        <activity android:name=".AddStudent"></activity>
+        <activity android:name=".AddStudent" />
+        <activity android:name=".ManageStudentPicked" />
+        <activity android:name=".TakeAttendance" />
+        <activity android:name=".ViewAttendance"></activity>
     </application>
 
 </manifest>

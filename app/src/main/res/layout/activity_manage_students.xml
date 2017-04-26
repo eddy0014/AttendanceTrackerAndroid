@@ -10,20 +10,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Manage Students"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
         android:layout_gravity="center_horizontal" />
 
     <ListView
         android:id="@+id/studentListView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#cfd8dc"/>
+        android:layout_weight="1" />
 
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:text="Add Student"
         android:onClick="addStudent"/>
 

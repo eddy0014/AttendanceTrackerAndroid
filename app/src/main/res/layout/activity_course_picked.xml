@@ -10,13 +10,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Course Options"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
         android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:text="Take Attendance"
         android:onClick="takeAttendance"/>
 
@@ -24,6 +27,16 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:text="View Attendance"
+        android:onClick="viewAttendance"/>
+
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:text="Manage Students"
         android:onClick="manageStudents"/>
 

@@ -5,28 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.eddy.attendancetracker.MainActivity">
+    tools:context="com.example.eddy.attendancetracker.ManageStudentPicked">
 
     <TextView
+        android:id="@+id/studentIDView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Course List"
-        android:textSize="20sp"
-        android:layout_margin="5dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="left"
+        android:textSize="15sp"
+        android:layout_margin="5dp"/>
 
-    <ListView
-        android:id="@+id/courseListView"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+    <TextView
+        android:id="@+id/nameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textSize="15sp"
+        android:layout_margin="5dp"/>
 
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5dp"
-        android:text="Add Course"
-        android:onClick="addCourse"/>
+        android:text="Delete Student"
+        android:onClick="deleteStudent"/>
 
 </LinearLayout>
